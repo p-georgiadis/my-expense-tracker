@@ -1,0 +1,35 @@
+#.dockerignore
+# Dependencies
+node_modules
+**/node_modules
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build directories
+**/dist
+**/build
+
+# Environment files
+.env*
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Version control
+.git
+.gitignore
+README.md
+
+# IDE files
+.idea
+.vscode
+*.swp
+*.swo
+
+# System files
+.DS_Store
+Thumbs.db

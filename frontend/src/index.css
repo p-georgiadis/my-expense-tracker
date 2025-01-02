@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force everything to be dark */
+body {
+    @apply bg-gray-900 text-gray-100;
+}
+
+/* Our custom card can be dark by default */
+.custom-card {
+    @apply bg-gray-800 text-gray-200 shadow-md rounded p-4;
+}
+
+/* Table styling refinements */
+.table-auto th,
+.table-auto td {
+    @apply border-b border-gray-700;
+}
+.table-auto th {
+    @apply text-xs uppercase bg-gray-700 text-gray-300;
+}
+.table-auto tr:hover {
+    @apply bg-gray-700;
+}
