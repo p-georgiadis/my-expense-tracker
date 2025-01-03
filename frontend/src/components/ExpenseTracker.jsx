@@ -3,7 +3,7 @@ import React from 'react';
 import { Plus, Trash2 } from 'lucide-react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card.jsx';
 
-const ExpenseTracker = ({ expenses, setExpenses }) => {
+const ExpenseTracker = ({ expenses, setExpenses, selectedMonth }) => {
     const categories = [
         'Housing',
         'Utilities',
@@ -28,6 +28,7 @@ const ExpenseTracker = ({ expenses, setExpenses }) => {
             dueDate: '',
             assignedTo: 'Shared',
             category: 'Other',
+            month: selectedMonth, // <-- THIS!
         };
 
         fetch('/api/expenses', {

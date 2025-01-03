@@ -5,13 +5,28 @@ import IncomeTracker from './IncomeTracker.jsx';
 import ExpenseTracker from './ExpenseTracker.jsx';
 
 const Dashboard = () => {
-    // State for selectedMonth
-    const [selectedMonth, setSelectedMonth] = useState('2023-11');
+    // ----------------------------
+    // 1) Use localStorage to read the last month or default
+    // ----------------------------
+    const [selectedMonth, setSelectedMonth] = useState(() => {
+        // Attempt to load from localStorage
+        const savedMonth = localStorage.getItem('selectedMonth');
+        return savedMonth || '2024-01'; // fallback if none found
+    });
 
     const [incomes, setIncomes] = useState([]);
     const [expenses, setExpenses] = useState([]);
 
-    // Fetch incomes/expenses whenever selectedMonth changes
+    // ----------------------------
+    // 2) Whenever selectedMonth changes, store it in localStorage
+    // ----------------------------
+    useEffect(() => {
+        localStorage.setItem('selectedMonth', selectedMonth);
+    }, [selectedMonth]);
+
+    // ----------------------------
+    // 3) Fetch data for this month
+    // ----------------------------
     useEffect(() => {
         fetch(`/api/incomes?month=${selectedMonth}`)
             .then((res) => res.json())
@@ -24,7 +39,9 @@ const Dashboard = () => {
             .catch((err) => console.error('Error fetching expenses:', err));
     }, [selectedMonth]);
 
-    // Calculate net income
+    // ----------------------------
+    // 4) Summaries
+    // ----------------------------
     const calculateNetIncome = () => {
         const panoIncomes = incomes
             .filter((inc) => inc.assignedTo === 'Pano')
@@ -148,19 +165,19 @@ const Dashboard = () => {
                             <div>
                                 <h2 className="text-xl font-medium mb-2">Incomes & Expenses</h2>
                                 <p>
-                                    Pano&#39;s Total Income:{' '}
+                                    Pano&apos;s Total Income:{' '}
                                     <strong>${panoIncomes.toFixed(2)}</strong>
                                 </p>
                                 <p>
-                                    Eva&#39;s Total Income:{' '}
+                                    Eva&apos;s Total Income:{' '}
                                     <strong>${evaIncomes.toFixed(2)}</strong>
                                 </p>
                                 <p>
-                                    Pano&#39;s Expenses (No Shared):{' '}
+                                    Pano&apos;s Expenses (No Shared):{' '}
                                     <strong>${panoExpenses.toFixed(2)}</strong>
                                 </p>
                                 <p>
-                                    Eva&#39;s Expenses (No Shared):{' '}
+                                    Eva&apos;s Expenses (No Shared):{' '}
                                     <strong>${evaExpenses.toFixed(2)}</strong>
                                 </p>
                                 <p>
@@ -179,10 +196,10 @@ const Dashboard = () => {
                                     <strong>${totalExpenses.toFixed(2)}</strong>
                                 </p>
                                 <p className="mt-2">
-                                    Pano&#39;s Net Income: <strong>${panoNet.toFixed(2)}</strong>
+                                    Pano&apos;s Net Income: <strong>${panoNet.toFixed(2)}</strong>
                                 </p>
                                 <p>
-                                    Eva&#39;s Net Income: <strong>${evaNet.toFixed(2)}</strong>
+                                    Eva&apos;s Net Income: <strong>${evaNet.toFixed(2)}</strong>
                                 </p>
                             </div>
                         </div>

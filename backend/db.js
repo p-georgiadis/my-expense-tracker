@@ -1,6 +1,13 @@
 // backend/db.js
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const fs = require('fs');
+
+// Ensure the data directory exists
+const dataDir = path.resolve(__dirname, 'data');
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
 
 // Point the database file to "/app/data/finance.db"
 const dbPath = path.resolve(__dirname, 'data', 'finance.db');

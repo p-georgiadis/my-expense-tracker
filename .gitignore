@@ -62,7 +62,8 @@ Thumbs.db
 dist/
 build/
 out/
-
+backend/data/*
+!backend/data/.gitkeep
 # Vite cache (if present)
 .vite/
 
